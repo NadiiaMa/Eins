@@ -9,4 +9,3 @@ def test_change_name(user):
 @pytest.mark.check
 def test_change_second_name(user):
     assert user.second_name == 'Makliak'
-    
