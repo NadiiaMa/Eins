@@ -40,4 +40,25 @@ def test_list_commits(github_api):
     commits = github_api.list_commits("octocat/Hello-World")
     assert len(commits) > 0
     assert "commit" in commits[0]
+
+@pytest.mark.api
+def test_list_commits_non_existing_repo(github_api):
+    r = github_api.list_commits("octocat/non-existing-repo")
+    assert 'message' in r
+    assert r['message'] == 'Not Found'
+
+@pytest.mark.api
+def test_list_commits_specific_user_repo(github_api):
+    commits = github_api.list_commits("torvalds/linux")
+    assert len(commits) > 0
+    assert "commit" in commits[0]
+
+@pytest.mark.api
+def test_emoji_monkey_exists(github_api):
+    emojis = github_api.get_emojis()
+    assert "monkey" in emojis
+
+def test_emoji_total_count(github_api):
+    emojis = github_api.get_emojis()
+    assert len(emojis) > 1000
        
