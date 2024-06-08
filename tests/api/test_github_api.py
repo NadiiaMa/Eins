@@ -29,4 +29,15 @@ def test_repo_cannot_be_found(github_api):
 def test_repo_with_single_char_be_found(github_api):
     r = github_api.search_repo('s')
     assert r['total_count'] != 0
+
+@pytest.mark.api
+def test_get_emojis(github_api):
+    emojis = github_api.get_emojis()
+    assert "smile" in emojis
+
+@pytest.mark.api
+def test_list_commits(github_api):
+    commits = github_api.list_commits("octocat/Hello-World")
+    assert len(commits) > 0
+    assert "commit" in commits[0]
        
