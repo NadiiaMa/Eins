@@ -67,4 +67,27 @@ def test_detailed_orders():
     assert orders[0][0] == 1
     assert orders[0][1] == 'Sergii'
     assert orders[0][2] == 'солодка вода'
-    assert orders[0][3] == 'з цукром'  
+    assert orders[0][3] == 'з цукром'
+
+
+@pytest.mark.database
+def test_get_user_address_by_name():
+    db = Database()
+    user_address = db.get_user_address_by_name('Ivo Bobul')
+    assert user_address is not None
+
+
+@pytest.mark.database
+def test_select_product_qnt_by_id():
+    db = Database()
+    product_qnt = db.select_product_qnt_by_id(1)
+    assert product_qnt is not None
+
+
+@pytest.mark.database
+def test_update_product_quantity_by_id():
+    db = Database()
+    db.update_product_qnt_by_id(2, 50)
+    updated_quantity = db.select_product_qnt_by_id(2)
+    assert updated_quantity[0][0] == 50
+
